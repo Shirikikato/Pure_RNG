@@ -400,7 +400,6 @@
                     <div class="claim-info" style="margin-top: 10px;">Show this at your nearest pizza shop!</div>
                 </div>
                 <div class="button-group">
-                    <button class="btn btn-primary" onclick="resetGame()">Try Again</button>
                     <button class="btn btn-secondary" onclick="shareResult()">📱 Share with Friends</button>
                 </div>
             </div>
@@ -410,7 +409,6 @@
                 <h2>🍕 Already Scratched Today! 🍕</h2>
                 <p>You've already claimed your pizza scratch card today. Come back tomorrow for another chance!</p>
                 <div class="timer" id="timerDisplay"></div>
-                <button class="btn btn-secondary" onclick="resetLocalStorage()">🔄 Reset (Dev)</button>
             </div>
         </div>
     </div>
@@ -621,7 +619,7 @@
                 resultScreen.classList.remove('winner');
                 resultScreen.classList.add('loser');
                 resultIcon.textContent = '😋';
-                resultTitle.textContent = 'Better Luck Next Time';
+                resultTitle.textContent = 'Better Luck Tomorrow!';
                 resultMessage.textContent = 'Don\'t worry, try again tomorrow for another chance to win exciting prizes!';
                 claimCodeSection.style.display = 'none';
             }
@@ -631,7 +629,12 @@
             localStorage.removeItem('pizzaScratchGameState');
             location.reload();
         }
-
+        function resetLocalStorage() {
+            if (confirm('Are you sure? This will clear all game data.')) {
+            localStorage.removeItem('pizzaScratchGameState');
+            location.reload();
+            }
+        }
         function shareResult() {
             const text = gameState.isWinner 
                 ? `🍕 I won exciting prizes! My claim code: ${gameState.claimCode} 🍕 Try Pizza Scratch & Win now!` 
@@ -711,5 +714,4 @@
         }
     </script>
 </body>
-
 </html>
